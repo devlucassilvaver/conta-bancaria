@@ -1,0 +1,199 @@
+package model;
+
+import exception.DataInvalidaException;
+import exception.StringVaziaException;
+import exception.ValorInvalidoException;
+
+import java.util.Scanner;
+
+public class Pessoa {
+    private String nomeCompleto, dataNascimento, genero, endereco, profissao, email;
+    private int cpf, telefone;
+
+    // CONSTRUTOR
+    public Pessoa(String nomeCompleto, String dataNascimento, String genero, String endereco, String profissao, String email,
+                  int cpf, int telefone) {
+        genero.toUpperCase();
+
+        if (nomeCompleto == null || nomeCompleto.isEmpty()){
+            throw new StringVaziaException("Nome inválido");
+        } if (dataNascimento.length() < 8 || dataNascimento.length() > 8){
+            throw new DataInvalidaException("Data inválida");
+        } if (genero == null || genero.isEmpty() || genero != "F" || genero != "M"){
+            throw new StringVaziaException("Gênero inválido (Gênero deve ser [F] - feminino e [M] - masculino)");
+        } if (endereco == null || endereco.isEmpty()){
+            throw new StringVaziaException("Endereço inválido");
+        } if (profissao == null || profissao.isEmpty()){
+            throw new StringVaziaException("Profissão inválida");
+        } if (email == null || email.isEmpty()){
+            throw new StringVaziaException("E-mail inválido");
+        } if (cpf < 11 || cpf > 11){
+            throw new ValorInvalidoException("CPF inválido.");
+        } if (telefone < 11 || telefone > 11){
+            throw new ValorInvalidoException("Telefone inválido.");
+        }
+
+        this.nomeCompleto = nomeCompleto;
+        this.dataNascimento = dataNascimento;
+        this.genero = genero;
+        this.endereco = endereco;
+        this.profissao = profissao;
+        this.email = email;
+        this.cpf = cpf;
+        this.telefone = telefone;
+    }
+
+    // MÉTODOS
+    public void alteracaoCadastral(){
+        Scanner tec = new Scanner(System.in);
+
+        boolean sair = false;
+        int opcao;
+
+        while (sair == false){
+            System.out.println("ALTERAÇÃO CADASTRAL");
+            System.out.println("1 - Alterar nome");
+            System.out.println("2 - Alterar gênero");
+            System.out.println("3 - Alterar endereço");
+            System.out.println("4 - Alterar profissão");
+            System.out.println("5 - Alterar e-mail");
+            System.out.println("6 - Alterar telefone");
+            System.out.println("7 - Sair");
+
+            opcao = tec.nextInt();
+
+            switch (opcao){
+                case 1:
+                    String alteracaoNomeCompleto;
+                    System.out.println("NOME COMPLETO EM CADASTRO: " + getNomeCompleto());
+                    alteracaoNomeCompleto = tec.nextLine();
+                    if (alteracaoNomeCompleto == null || alteracaoNomeCompleto.isEmpty()){
+                        throw new StringVaziaException("Nome completo inválido");
+                    } else if (this.getNomeCompleto() == alteracaoNomeCompleto){
+                        throw new IllegalArgumentException("O nome de alteração é igual ao nome já cadastrado em sistema");
+                    }
+                    System.out.println("NOME COMPLETO ALTERADO!");
+                    this.setNomeCompleto(alteracaoNomeCompleto);
+
+                case 2:
+                    String alteracaoGenero;
+                    System.out.println("GÊNERO EM CADASTRO: " + getGenero());
+                    alteracaoGenero = tec.nextLine();
+                    if (alteracaoGenero == null || alteracaoGenero.isEmpty()){
+                        throw new StringVaziaException("Gênero inválido");
+                    } else if (this.getGenero() == alteracaoGenero){
+                        throw new IllegalArgumentException("O gênero de alteração é igual ao gênero já cadastrado em sistema");
+                    }
+                    System.out.println("GÊNERO ALTERADO!");
+                    this.setGenero(alteracaoGenero);
+
+                case 3:
+                    String alteracaoEndereco;
+                    System.out.println("ENDEREÇO EM CADASTRO: " + getEndereco());
+                    alteracaoEndereco = tec.nextLine();
+
+                    if (alteracaoEndereco == null || alteracaoEndereco.isEmpty()){
+                        throw new StringVaziaException("Endereço inválido");
+                    }
+                    System.out.println("ENDEREÇO ALTERADO!");
+                    this.setEndereco(alteracaoEndereco);
+
+                case 4:
+                    String alteracaoProfissao;
+                    System.out.println("PROFISSÃO EM CADASTRO: " + getProfissao());
+                    alteracaoProfissao = tec.nextLine();
+
+                    if (alteracaoProfissao == null || alteracaoProfissao.isEmpty()){
+                        throw new StringVaziaException("PROFISSÃO INVÁLIDA");
+                    }
+                    System.out.println("PROFISSÃO ALTERADA!");
+                    this.setProfissao(alteracaoProfissao);
+
+                case 5:
+                    String alteracaoEmail;
+                    System.out.println("E-MAIL EM CADASTRO: " + getEmail());
+                    alteracaoEmail = tec.nextLine();
+
+                    if (alteracaoEmail == null || alteracaoEmail.isEmpty()){
+                        throw new StringVaziaException("E-MAIL INVÁLIDO");
+                    }
+                    System.out.println("E-MAIL ALTERADO!");
+                    this.setProfissao(alteracaoEmail);
+                case 6:
+                    int alteracaoTelefone;
+                    System.out.println("TELEFONE EM CADASTRO: " + getTelefone());
+                    System.out.println("FORMATO DE NÚMERO DE TELEFONE: (00) 00000-0000");
+                    alteracaoTelefone = tec.nextInt();
+
+                    if (alteracaoTelefone < 11 || alteracaoTelefone > 11){
+                        throw new ValorInvalidoException("TELEFONE INVÁLIDO");
+                    }
+                    System.out.println("TELEFONE ALTERADO!");
+                    this.setTelefone(alteracaoTelefone);
+                case 7:
+                    sair = true;
+                    break;
+            }
+        }
+
+
+    }
+
+    // GET E SET
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(String profissao) {
+        this.profissao = profissao;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+}
