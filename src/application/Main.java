@@ -2,21 +2,45 @@ package application;
 import model.ContaBancaria;
 import model.ContaCorrente;
 import model.ContaPoupanca;
+import model.Pessoa;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String nome;
+        String nome, dataNascimento, genero, endereco, profissao, email, cpf, telefone;
         int opcao, opcaoTipoConta;
         double valorSaque, valorDeposito;
         boolean sair = false;
 
         Scanner tec = new Scanner(System.in);
 
-        System.out.println("-- ABRIR CONTA --");
-        System.out.println("Digite seu nome e sobrenome: ");
-        nome = tec.nextLine().toUpperCase();
+        System.out.println("-- ABERTURA DE CONTA --");
+            System.out.println("Digite seu nome e sobrenome: ");
+            nome = tec.nextLine().toUpperCase();
+
+            System.out.println("Digite sua data de nascimento no formado [XX/XX/XXXX]: ");
+            dataNascimento = tec.nextLine().toUpperCase();
+
+            System.out.println("Digite seu gênero [F] - Feminino ou [M] - Masculino");
+            genero = tec.nextLine().toUpperCase();
+
+            System.out.println("Digite seu endereço [RUA, NÚMERO, BAIRRO, CIDADE, SIGLA ESTADO]: ");
+            endereco = tec.nextLine().toUpperCase();
+
+            System.out.println("Digite sua profissão: ");
+            profissao = tec.nextLine().toUpperCase();
+
+            System.out.println("Digite seu email: ");
+            email = tec.nextLine().toUpperCase();
+
+            System.out.println("Digite seu CPF: ");
+            cpf = tec.nextLine();
+
+            System.out.println("Digite seu telefone: ");
+            telefone = tec.nextLine();
+
+        Pessoa p1 = new Pessoa(nome, dataNascimento, genero, endereco, profissao, email, cpf, telefone);
 
         System.out.println("Você deseja abrir uma Conta Corrente ou Conta Poupança?");
         System.out.println("Digite [1] para CC e [2] para CP");
@@ -35,7 +59,9 @@ public class Main {
                     System.out.println(" |  1 - Efetuar depósito       |");
                     System.out.println(" |  2 - Efetuar saque          |");
                     System.out.println(" |  3 - Obter extrato          |");
-                    System.out.println(" |  4 - Sair                   |");
+                    System.out.println(" |  4 - Visualização cadastral    |");
+                    System.out.println(" |  5 - Alteração cadastral    |");
+                    System.out.println(" |  6 - Sair                   |");
                     System.out.println(" |                             |");
                     System.out.println(" _______________________________");
                     opcao = tec.nextInt();
@@ -60,6 +86,10 @@ public class Main {
                             continue;
 
                         case 4:
+                            p1.visualizacaoCadastral();
+                        case 5:
+                            p1.alteracaoCadastral();
+                        case 6:
                             System.out.println("FECHANDO SISTEMA");
                             sair = true;
                         default:

@@ -7,17 +7,15 @@ import exception.ValorInvalidoException;
 import java.util.Scanner;
 
 public class Pessoa {
-    private String nomeCompleto, dataNascimento, genero, endereco, profissao, email;
-    private int cpf, telefone;
+    private String nomeCompleto, dataNascimento, genero, endereco, profissao, email, cpf, telefone;
 
     // CONSTRUTOR
-    public Pessoa(String nomeCompleto, String dataNascimento, String genero, String endereco, String profissao, String email,
-                  int cpf, int telefone) {
+    public Pessoa(String nomeCompleto, String dataNascimento, String genero, String endereco, String profissao, String email, String cpf, String telefone) {
         genero.toUpperCase();
 
         if (nomeCompleto == null || nomeCompleto.isEmpty()){
             throw new StringVaziaException("Nome inválido");
-        } if (dataNascimento.length() < 8 || dataNascimento.length() > 8){
+        } if (dataNascimento.length() < 10 || dataNascimento.length() > 10){
             throw new DataInvalidaException("Data inválida");
         } if (genero == null || genero.isEmpty() || genero != "F" || genero != "M"){
             throw new StringVaziaException("Gênero inválido (Gênero deve ser [F] - feminino e [M] - masculino)");
@@ -27,9 +25,9 @@ public class Pessoa {
             throw new StringVaziaException("Profissão inválida");
         } if (email == null || email.isEmpty()){
             throw new StringVaziaException("E-mail inválido");
-        } if (cpf < 11 || cpf > 11){
+        } if (cpf.length() < 11 || cpf.length() > 11){
             throw new ValorInvalidoException("CPF inválido.");
-        } if (telefone < 11 || telefone > 11){
+        } if (telefone.length() < 11 || telefone.length() > 11){
             throw new ValorInvalidoException("Telefone inválido.");
         }
 
@@ -51,7 +49,7 @@ public class Pessoa {
         int opcao;
 
         while (sair == false){
-            System.out.println("ALTERAÇÃO CADASTRAL");
+            System.out.println("-- ALTERAÇÃO CADASTRAL --");
             System.out.println("1 - Alterar nome");
             System.out.println("2 - Alterar gênero");
             System.out.println("3 - Alterar endereço");
@@ -120,12 +118,12 @@ public class Pessoa {
                     System.out.println("E-MAIL ALTERADO!");
                     this.setProfissao(alteracaoEmail);
                 case 6:
-                    int alteracaoTelefone;
+                    String alteracaoTelefone;
                     System.out.println("TELEFONE EM CADASTRO: " + getTelefone());
                     System.out.println("FORMATO DE NÚMERO DE TELEFONE: (00) 00000-0000");
-                    alteracaoTelefone = tec.nextInt();
+                    alteracaoTelefone = tec.nextLine();
 
-                    if (alteracaoTelefone < 11 || alteracaoTelefone > 11){
+                    if (alteracaoTelefone.length() < 11 || alteracaoTelefone.length() > 11){
                         throw new ValorInvalidoException("TELEFONE INVÁLIDO");
                     }
                     System.out.println("TELEFONE ALTERADO!");
@@ -135,8 +133,6 @@ public class Pessoa {
                     break;
             }
         }
-
-
     }
 
     // GET E SET
@@ -151,6 +147,10 @@ public class Pessoa {
 
     public String getDataNascimento() {
         return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento){
+        this.dataNascimento = dataNascimento;
     }
 
     public String getGenero() {
@@ -185,15 +185,28 @@ public class Pessoa {
         this.email = email;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String visualizacaoCadastral() {
+        return "\nCADASTRO:" +
+                "\nNome completo: " + nomeCompleto + '\'' +
+                "\nData de nascimento: " + dataNascimento + '\'' +
+                "\nGênero: " + genero + '\'' +
+                "\nEndereço: " + endereco + '\'' +
+                "\nProfissão: " + profissao + '\'' +
+                "\nE-mail: " + email + '\'' +
+                "\nCPF: " + cpf + '\'' +
+                "\nTelefone: " + telefone + '\'' +
+                '}';
     }
 }

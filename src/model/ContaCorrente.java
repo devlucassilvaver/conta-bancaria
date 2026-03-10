@@ -1,5 +1,7 @@
 package model;
 
+import exception.SaldoInsuficienteException;
+
 public class ContaCorrente extends ContaBancaria {
     private static final double TAXA_SAQUE = 5.0;
 

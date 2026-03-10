@@ -36,8 +36,9 @@ public abstract class ContaBancaria {
         if (valor <= 0){
             throw new ValorNegativoException("O valor deve ser positivo.");
         }
-        if (valor > this.saldo){
-            throw new SaldoInsuficienteException("Saldo insuficiente.");
+        if (valor > this.getSaldo()){
+            System.out.println("Saldo atual: " + getSaldo() + " - Valor para saque: " + valor);
+            throw new SaldoInsuficienteException("Você não possui saldo suficiente para realizar o saque");
         }
         this.saldo -= valor;
     }
