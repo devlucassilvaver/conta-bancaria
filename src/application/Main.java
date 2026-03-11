@@ -1,46 +1,43 @@
 package application;
-import model.ContaBancaria;
-import model.ContaCorrente;
-import model.ContaPoupanca;
-import model.Pessoa;
+import model.*;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String nome, dataNascimento, genero, endereco, profissao, email, cpf, telefone;
+        String nomeCompleto, genero, cpf, dataNascimento, endereco, profissao, email, telefone;
         int opcao, opcaoTipoConta;
         double valorSaque, valorDeposito;
         boolean sair = false;
 
         Scanner tec = new Scanner(System.in);
 
-        System.out.println("-- ABERTURA DE CONTA --");
-            System.out.println("Digite seu nome e sobrenome: ");
-            nome = tec.nextLine().toUpperCase();
+        System.out.println("-- ABRIR CONTA --");
+        System.out.println("Digite seu nome completo: ");
+        nomeCompleto = tec.nextLine().toUpperCase();
 
-            System.out.println("Digite sua data de nascimento no formado [XX/XX/XXXX]: ");
-            dataNascimento = tec.nextLine().toUpperCase();
+        System.out.println("Digite seu CPF: ");
+        cpf = tec.nextLine();
 
-            System.out.println("Digite seu gênero [F] - Feminino ou [M] - Masculino");
-            genero = tec.nextLine().toUpperCase();
+        System.out.println("Digite sua data de nascimento: ");
+        dataNascimento = tec.nextLine();
 
-            System.out.println("Digite seu endereço [RUA, NÚMERO, BAIRRO, CIDADE, SIGLA ESTADO]: ");
-            endereco = tec.nextLine().toUpperCase();
+        System.out.println("Digite seu gênero | [F] para FEMININO e [M] para MASCULINO");
+        genero = tec.nextLine().toUpperCase();
 
-            System.out.println("Digite sua profissão: ");
-            profissao = tec.nextLine().toUpperCase();
+        System.out.println("Digite seu endereço | FORMATO: [rua, numero, bairro, cidade, estado]: ");
+        endereco = tec.nextLine().toUpperCase();
 
-            System.out.println("Digite seu email: ");
-            email = tec.nextLine().toUpperCase();
+        System.out.println("Digite sua profissão: ");
+        profissao = tec.nextLine().toUpperCase();
 
-            System.out.println("Digite seu CPF: ");
-            cpf = tec.nextLine();
+        System.out.println("Digite seu e-mail: ");
+        email = tec.nextLine().toLowerCase();
 
-            System.out.println("Digite seu telefone: ");
-            telefone = tec.nextLine();
+        System.out.println("Digite seu telefone: ");
+        telefone = tec.nextLine();
 
-        Pessoa p1 = new Pessoa(nome, dataNascimento, genero, endereco, profissao, email, cpf, telefone);
+        Pessoa p1 = new Pessoa(nomeCompleto, cpf, dataNascimento, genero, endereco, profissao, email, telefone);
 
         System.out.println("Você deseja abrir uma Conta Corrente ou Conta Poupança?");
         System.out.println("Digite [1] para CC e [2] para CP");
@@ -49,7 +46,7 @@ public class Main {
 
         switch (opcaoTipoConta){
             case 1:
-                ContaCorrente c1 = new ContaCorrente(nome, 10);
+                ContaCorrente c1 = new ContaCorrente(nomeCompleto, 10);
                 System.out.println("SUA CONTA FOI ABERTA NO BANCO JAVA E VOCÊ GANHOU R$ 10,00");
 
                 while (sair == false){
@@ -59,9 +56,8 @@ public class Main {
                     System.out.println(" |  1 - Efetuar depósito       |");
                     System.out.println(" |  2 - Efetuar saque          |");
                     System.out.println(" |  3 - Obter extrato          |");
-                    System.out.println(" |  4 - Visualização cadastral    |");
-                    System.out.println(" |  5 - Alteração cadastral    |");
-                    System.out.println(" |  6 - Sair                   |");
+                    System.out.println(" |  4 - Obter dados cadastrais |");
+                    System.out.println(" |  5 - Sair                   |");
                     System.out.println(" |                             |");
                     System.out.println(" _______________________________");
                     opcao = tec.nextInt();
@@ -80,24 +76,27 @@ public class Main {
                             continue;
 
                         case 3:
-                            System.out.println("EXTRATO: " + nome);
+                            System.out.println("EXTRATO: " + nomeCompleto);
                             System.out.println("NÚMERO DA CONTA: " + c1.getNumeroConta());
                             System.out.println("SALDO: " + c1.getSaldo());
                             continue;
 
                         case 4:
-                            p1.visualizacaoCadastral();
+                            System.out.println(p1.Dados());
+                            continue;
+
                         case 5:
-                            p1.alteracaoCadastral();
-                        case 6:
                             System.out.println("FECHANDO SISTEMA");
                             sair = true;
+
                         default:
                             System.out.println("Opção inválida.");
                     }
                 }
+            break;
+
             case 2:
-                ContaPoupanca cp1 = new ContaPoupanca(nome, 10, 0.002);
+                ContaPoupanca cp1 = new ContaPoupanca(nomeCompleto, 10, 0.002);
                 System.out.println("SUA CP FOI ABERTA NO BANCO JAVA E VOCÊ GANHOU R$ 10,00");
                 System.out.println("UMA CP NO BANCO JAVA RENDE 0,06% AO MÊS");
 
@@ -107,7 +106,8 @@ public class Main {
                     System.out.println("1 - Efetuar depósito");
                     System.out.println("2 - Efetuar saque");
                     System.out.println("3 - Obter extrato");
-                    System.out.println("4 - Sair");
+                    System.out.println("4 - Obter extrato");
+                    System.out.println("5 - Sair");
                     opcao = tec.nextInt();
 
                     switch (opcao){
@@ -124,13 +124,19 @@ public class Main {
 
                         case 3:
                             cp1.aplicarRendimento();
-                            System.out.println("EXTRATO: " + nome);
+                            System.out.println("EXTRATO: " + nomeCompleto);
                             System.out.println("NÚMERO DA CONTA: " + cp1.getNumeroConta());
                             System.out.println("SALDO: " + cp1.getSaldo());
                             continue;
+
                         case 4:
+                            System.out.println(p1.Dados());
+                            continue;
+
+                        case 5:
                             System.out.println("FECHANDO SISTEMA");
                             sair = true;
+                            break;
 
                         default:
                             System.out.println("Opção inválida");

@@ -1,7 +1,5 @@
 package model;
 
-import exception.SaldoInsuficienteException;
-
 public class ContaCorrente extends ContaBancaria {
     private static final double TAXA_SAQUE = 5.0;
 
@@ -14,7 +12,7 @@ public class ContaCorrente extends ContaBancaria {
         double saqueTotal = valor + TAXA_SAQUE;
 
         System.out.printf("TAXA DE SAQUE: R$ %.2f\n", TAXA_SAQUE);
-        System.out.printf("Saque realizado no valor de R$ %.2f\n", valor);
+        System.out.printf("Saque realizado no valor de R$ %.2f\n", saqueTotal);
 
         super.sacar(saqueTotal);
     }

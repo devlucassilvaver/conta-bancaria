@@ -7,18 +7,21 @@ import exception.ValorInvalidoException;
 import java.util.Scanner;
 
 public class Pessoa {
-    private String nomeCompleto, dataNascimento, genero, endereco, profissao, email, cpf, telefone;
+    private String nomeCompleto, cpf, dataNascimento, genero, endereco, profissao, email, telefone;
 
     // CONSTRUTOR
-    public Pessoa(String nomeCompleto, String dataNascimento, String genero, String endereco, String profissao, String email, String cpf, String telefone) {
-        genero.toUpperCase();
+    public Pessoa(String nomeCompleto, String cpf, String dataNascimento, String genero, String endereco, String profissao, String email, String telefone) {
 
-        if (nomeCompleto == null || nomeCompleto.isEmpty()){
+        System.out.println("genero está saindo: " + genero);
+        if (nomeCompleto == null || nomeCompleto.trim().isEmpty()){
             throw new StringVaziaException("Nome inválido");
         } if (dataNascimento.length() < 10 || dataNascimento.length() > 10){
             throw new DataInvalidaException("Data inválida");
-        } if (genero == null || genero.isEmpty() || genero != "F" || genero != "M"){
-            throw new StringVaziaException("Gênero inválido (Gênero deve ser [F] - feminino e [M] - masculino)");
+        } if (genero == null || genero.isEmpty() ||
+                (!genero.equals("F") && !genero.equals("M"))) {
+            throw new StringVaziaException(
+                    "Gênero inválido (Gênero deve ser [F] - feminino e [M] - masculino)"
+            );
         } if (endereco == null || endereco.isEmpty()){
             throw new StringVaziaException("Endereço inválido");
         } if (profissao == null || profissao.isEmpty()){
@@ -41,6 +44,19 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
+    public String Dados() {
+        String s = "\nDADOS:" +
+                "\nNome Completo: " + nomeCompleto +
+                "\nCPF: " + cpf +
+                "\nData de nascimento: " + dataNascimento +
+                "\nGênero: " + genero +
+                "\nEndereço: " + endereco +
+                "\nProfissão: " + profissao +
+                "\nE-mail: " + email +
+                "\nTelefone: " + telefone;
+        return s;
+    }
+
     // MÉTODOS
     public void alteracaoCadastral(){
         Scanner tec = new Scanner(System.in);
@@ -49,7 +65,7 @@ public class Pessoa {
         int opcao;
 
         while (sair == false){
-            System.out.println("-- ALTERAÇÃO CADASTRAL --");
+            System.out.println("ALTERAÇÃO CADASTRAL");
             System.out.println("1 - Alterar nome");
             System.out.println("2 - Alterar gênero");
             System.out.println("3 - Alterar endereço");
@@ -59,11 +75,13 @@ public class Pessoa {
             System.out.println("7 - Sair");
 
             opcao = tec.nextInt();
+            tec.nextLine();
 
             switch (opcao){
                 case 1:
                     String alteracaoNomeCompleto;
                     System.out.println("NOME COMPLETO EM CADASTRO: " + getNomeCompleto());
+                    System.out.println("DIGITE O NOME COMPLETO PARA ALTERAÇÃO: ");
                     alteracaoNomeCompleto = tec.nextLine();
                     if (alteracaoNomeCompleto == null || alteracaoNomeCompleto.isEmpty()){
                         throw new StringVaziaException("Nome completo inválido");
@@ -72,6 +90,7 @@ public class Pessoa {
                     }
                     System.out.println("NOME COMPLETO ALTERADO!");
                     this.setNomeCompleto(alteracaoNomeCompleto);
+                    break;
 
                 case 2:
                     String alteracaoGenero;
@@ -84,6 +103,7 @@ public class Pessoa {
                     }
                     System.out.println("GÊNERO ALTERADO!");
                     this.setGenero(alteracaoGenero);
+                    break;
 
                 case 3:
                     String alteracaoEndereco;
@@ -95,6 +115,7 @@ public class Pessoa {
                     }
                     System.out.println("ENDEREÇO ALTERADO!");
                     this.setEndereco(alteracaoEndereco);
+                    break;
 
                 case 4:
                     String alteracaoProfissao;
@@ -106,6 +127,7 @@ public class Pessoa {
                     }
                     System.out.println("PROFISSÃO ALTERADA!");
                     this.setProfissao(alteracaoProfissao);
+                    break;
 
                 case 5:
                     String alteracaoEmail;
@@ -116,7 +138,9 @@ public class Pessoa {
                         throw new StringVaziaException("E-MAIL INVÁLIDO");
                     }
                     System.out.println("E-MAIL ALTERADO!");
-                    this.setProfissao(alteracaoEmail);
+                    this.setEmail(alteracaoEmail);
+                    break;
+
                 case 6:
                     String alteracaoTelefone;
                     System.out.println("TELEFONE EM CADASTRO: " + getTelefone());
@@ -128,11 +152,15 @@ public class Pessoa {
                     }
                     System.out.println("TELEFONE ALTERADO!");
                     this.setTelefone(alteracaoTelefone);
+                    break;
+
                 case 7:
                     sair = true;
                     break;
             }
         }
+
+
     }
 
     // GET E SET
@@ -147,10 +175,6 @@ public class Pessoa {
 
     public String getDataNascimento() {
         return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento){
-        this.dataNascimento = dataNascimento;
     }
 
     public String getGenero() {
@@ -195,18 +219,5 @@ public class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String visualizacaoCadastral() {
-        return "\nCADASTRO:" +
-                "\nNome completo: " + nomeCompleto + '\'' +
-                "\nData de nascimento: " + dataNascimento + '\'' +
-                "\nGênero: " + genero + '\'' +
-                "\nEndereço: " + endereco + '\'' +
-                "\nProfissão: " + profissao + '\'' +
-                "\nE-mail: " + email + '\'' +
-                "\nCPF: " + cpf + '\'' +
-                "\nTelefone: " + telefone + '\'' +
-                '}';
     }
 }
