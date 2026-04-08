@@ -11,8 +11,6 @@ public class Pessoa {
 
     // CONSTRUTOR
     public Pessoa(String nomeCompleto, String cpf, String dataNascimento, String genero, String endereco, String profissao, String email, String telefone) {
-
-        System.out.println("genero está saindo: " + genero);
         if (nomeCompleto == null || nomeCompleto.trim().isEmpty()){
             throw new StringVaziaException("Nome inválido");
         } if (dataNascimento.length() < 10 || dataNascimento.length() > 10){
