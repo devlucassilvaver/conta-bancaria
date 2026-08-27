@@ -18,7 +18,7 @@ O sistema permite criar contas, realizar depósitos, saques e consultar saldo, a
 
 ## 🛠️ Tecnologia utilizada
 
-* Java - POO
+* Java
 
 ---
 
@@ -26,10 +26,11 @@ O sistema permite criar contas, realizar depósitos, saques e consultar saldo, a
 
 Este projeto foi desenvolvido com foco nos seguintes conceitos:
 
+* Herança
 * Encapsulamento
-* Classes e Objetos
-* Construtores
-* Métodos
+* Polimorfismo
+* Lançamento de exceções
+* Classes, objetos, construtores e métodos
 * Validações de regras de negócio
 * Organização de código
 
@@ -91,7 +92,7 @@ Saldo atual: R$ 1300.00
 ## 👨‍💻 Autor
 
 Desenvolvido por Lucas Silva
-🔗 LinkedIn: https://www.linkedin.com/in/lucassilvadevv/
+🔗 linkedin.com/in/lucassilvadevv/
 
 ---
 
