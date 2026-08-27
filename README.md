@@ -92,6 +92,7 @@ Saldo atual: R$ 1300.00
 ## 👨‍💻 Autor
 
 Desenvolvido por Lucas Silva
+
 🔗 linkedin.com/in/lucassilvadevv/
 
 ---
